@@ -19,6 +19,7 @@ namespace EF7WebApi.Models
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
+                await db.Database.EnsureDeletedAsync();
 
                 if (await db.Database.EnsureCreatedAsync())
                 {
@@ -32,7 +33,7 @@ namespace EF7WebApi.Models
         {
             var weatherEvents = GetWeatherEvents();
 
-                  await AddOrUpdateAsync(serviceProvider, a => a.Id, weatherEvents);
+            await AddOrUpdateAsync(serviceProvider, a => a.Id, weatherEvents);
         }
 
         // TODO [EF] This may be replaced by a first class mechanism in EF

@@ -8,10 +8,14 @@ namespace EF7WebAPI
         {
             return new WeatherEvent(date, type, hooray);
         }
+    public WeatherEvent() {
+
+    }
         private WeatherEvent(DateTime dateTime, WeatherType type, Boolean hooray) { 
             this.Date=dateTime.Date;
             this.Time=dateTime.TimeOfDay;
             Hooray=hooray;
+            Type = type;
         }
         public int Id { get; set; }
         public DateTime Date { get; private set; }

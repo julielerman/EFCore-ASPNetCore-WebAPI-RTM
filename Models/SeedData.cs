@@ -20,7 +20,8 @@ namespace EF7WebApi.Models
             {
                 var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
 
-                if (await db.Database.EnsureCreatedAsync())
+        await db.Database.EnsureDeletedAsync();
+        if (await db.Database.EnsureCreatedAsync())
                 {
                     await InsertTestData(serviceProvider);
 
@@ -82,11 +83,11 @@ namespace EF7WebApi.Models
         {
             var events = new WeatherEvent[]
             {
-                WeatherEvent.Create(DateTime.Today,WeatherType.Sun,true),
-                WeatherEvent.Create(DateTime.Today.AddDays(-1),WeatherType.Snow,true),
-                WeatherEvent.Create(DateTime.Today.AddDays(-2),WeatherType.Rain,false),
-                WeatherEvent.Create(DateTime.Today.AddDays(-3),WeatherType.Sleet,false),
-                WeatherEvent.Create(DateTime.Today.AddDays(-4),WeatherType.Hail,false)
+                WeatherEvent.Create(DateTime.Now,WeatherType.Sun,true),
+                WeatherEvent.Create(DateTime.Now.AddDays(-1),WeatherType.Snow,true),
+                WeatherEvent.Create(DateTime.Now.AddDays(-2),WeatherType.Rain,false),
+                WeatherEvent.Create(DateTime.Now.AddDays(-3),WeatherType.Sleet,false),
+                WeatherEvent.Create(DateTime.Now.AddDays(-4),WeatherType.Hail,false)
             };
             return events;
         }

@@ -45,9 +45,9 @@ namespace EF7WebAPI
             //for post RC1 implementation of determining if this is a test
             //with the platform inspection
            services.AddEntityFramework()
-                .AddNpgsql()
+               .AddSqlite()
                 .AddDbContext<WeatherContext>(options =>
-                    options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
+                    options.UseSqlite(Configuration["Data:SQLiteConnection:ConnectionString"]));
 
         }
 

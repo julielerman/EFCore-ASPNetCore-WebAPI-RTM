@@ -15,31 +15,27 @@ namespace EF7WebAPI.Controllers
         {
             _context = context;
         }
-        // GET: api/values
-        // [HttpGet]
-        // public IEnumerable<WeatherEvent> Get(WeatherType type)
-        // {
-        //     return _context.WeatherEvents.Where(w => w.Type == type).ToList();
-        // }
+        
         [HttpGet]
         public IEnumerable<WeatherEvent> Get()
         {
             return _context.WeatherEvents.ToList();
         }
-
-    //    [HttpGet]
-    //       public IEnumerable<string> Get()
-    //     {
-    //         return new string[] { "value1", "value4" };
-    //     }
         
-        // [HttpGet]
-        // public IEnumerable<WeatherEvent> Get(DateTime date)
-        // {
-        //     return _context.WeatherEvents.Where(w => w.Date.Date == date.Date).ToList();
-        // }
+       [HttpGet("{weatherType}")]
+        public IEnumerable<WeatherEvent> Get(int weatherType)
+        {
+            return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
+        }
 
-        // [HttpGet]
+
+        [HttpGet("{date}")]
+        public IEnumerable<WeatherEvent> Get(DateTime date)
+        {
+            return _context.WeatherEvents.Where(w => w.Date.Date == date.Date).ToList();
+        }
+
+    //[HttpPut]
         // public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy)
         // {
         //     var wE = WeatherEvent.Create(datetime, type, happy);

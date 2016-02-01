@@ -1,5 +1,6 @@
 using EF7WebApi.Models;
 using EF7WebAPI.Data;
+using EFLogging;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.CodeAnalysis;
@@ -18,19 +19,19 @@ namespace EF7WebAPI
 {
     public class Startup
     {
-         private readonly Platform _platform;
+        private readonly Platform _platform;
 
         public Startup(IHostingEnvironment env, IRuntimeEnvironment runtimeEnvironment)
         {
-           
+
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-          // _platform=new Platform();
-           
-           
+            // _platform=new Platform();
+
+
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -40,14 +41,15 @@ namespace EF7WebAPI
         {
             // Add framework services.
             services.AddMvc();
-            
+
             //note: see https://github.com/aspnet/MusicStore/blob/dev/src/MusicStore/Startup.cs
             //for post RC1 implementation of determining if this is a test
             //with the platform inspection
-           services.AddEntityFramework()
-                .AddNpgsql()
-                .AddDbContext<WeatherContext>(options =>
-                    options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
+            
+            services.AddEntityFramework()
+                 .AddNpgsql()
+                 .AddDbContext<WeatherContext>(options =>
+                     options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
 
         }
 
@@ -56,13 +58,14 @@ namespace EF7WebAPI
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddProvider(new MyLoggerProvider2());
 
             app.UseIISPlatformHandler();
 
             app.UseStaticFiles();
 
             app.UseMvc();
-             //Populates the MusicStore sample data
+            //Populates the MusicStore sample data
             SampleData.InitializeWeatherEventDatabaseAsync(app.ApplicationServices).Wait();
         }
 

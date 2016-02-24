@@ -1,4 +1,5 @@
 
+using EF7WebAPI.Controllers;
 using Xunit;
 
 namespace MyFirstDnxUnitTests
@@ -20,6 +21,14 @@ namespace MyFirstDnxUnitTests
         int Add(int x, int y)
         {
             return x + y;
+        }
+        [Fact]
+        public void TestingAPI()
+        {
+            var controller=new WeatherController(new EF7WebAPI.Data.WeatherContext());
+            var results=controller.Get();
+            Assert.NotEmpty(results);
+            
         }
     }
 }

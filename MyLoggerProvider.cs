@@ -24,7 +24,7 @@ namespace EFLogging
             public void Log(LogLevel logLevel, int eventId, object state, Exception exception, Func<object, Exception, string> formatter)
             {
                // File.AppendAllText(@"C:\temp\log.txt", formatter(state, exception));
-                Console.WriteLine(formatter(state, exception));
+                Console.WriteLine("--------"+ System.Environment.NewLine+formatter(state, exception));
             }
 
             public IDisposable BeginScopeImpl(object state)

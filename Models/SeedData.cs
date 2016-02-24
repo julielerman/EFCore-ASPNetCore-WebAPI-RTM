@@ -31,7 +31,7 @@ namespace EF7WebApi.Models
 
         private static async Task InsertTestData(IServiceProvider serviceProvider)
         {
-            var weatherEvents = GetWeatherEvents();
+            var weatherEvents = BuildWeatherEvents();
 
             await AddOrUpdateAsync(serviceProvider, a => a.Id, weatherEvents);
         }
@@ -79,7 +79,7 @@ namespace EF7WebApi.Models
                 .AddEnvironmentVariables();
             var configuration = builder.Build();
         }
-        private static WeatherEvent[] GetWeatherEvents()
+        private static WeatherEvent[] BuildWeatherEvents()
         {
             var events = new WeatherEvent[]
             {

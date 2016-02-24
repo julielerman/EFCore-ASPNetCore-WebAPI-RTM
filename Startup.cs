@@ -65,7 +65,7 @@ namespace EF7WebAPI
             app.UseStaticFiles();
 
             app.UseMvc();
-            //Populates the MusicStore sample data
+            //Populates the sample data
             SampleData.InitializeWeatherEventDatabaseAsync(app.ApplicationServices).Wait();
         }
 

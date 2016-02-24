@@ -16,12 +16,20 @@ namespace EF7WebAPI.Controllers
             _context = context;
         }
         
+       
         [HttpGet]
         public IEnumerable<WeatherEvent> Get()
         {
             return _context.WeatherEvents.ToList();
           
         }
+        //     [HttpGet]
+        // public IEnumerable<WeatherEvent> GetTestInsert()
+        // {
+        //     LogWeatherEvent(DateTime.Now.AddDays(7),WeatherType.Hail,true);
+        //     return _context.WeatherEvents.ToList();
+          
+        // }
         
         //api/Weather/2016-01-28
         [HttpGet("{date}")]
@@ -39,16 +47,20 @@ namespace EF7WebAPI.Controllers
         }
 
 
-        
+    //    [HttpPost]
+    //     public DateTime LogWeatherEvent(DateTime datetime)
+    //     {  
+    //         return datetime;
+    //      }
 
-    //[HttpPut]
-        // public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy)
-        // {
-        //     var wE = WeatherEvent.Create(datetime, type, happy);
+    [HttpPost]
+        public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy)
+        {
+            var wE = WeatherEvent.Create(datetime, type, happy);
 
-        //     _context.WeatherEvents.Add(wE);
-        //     var result = _context.SaveChanges();
-        //     return result == 1;
-        // }
+            _context.WeatherEvents.Add(wE);
+            var result = _context.SaveChanges();
+            return result == 1;
+        }
     }
 }

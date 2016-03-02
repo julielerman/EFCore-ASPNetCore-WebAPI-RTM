@@ -1,4 +1,3 @@
-using EF7WebApi.Models;
 using EF7WebAPI.Data;
 using EFLogging;
 using Microsoft.AspNet.Builder;

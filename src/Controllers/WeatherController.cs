@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EF7WebAPI.Data;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Data.Entity;
 
 
 namespace EF7WebAPI.Controllers
@@ -34,16 +35,17 @@ namespace EF7WebAPI.Controllers
         //api/Weather/2016-01-28
         [HttpGet("{date}")]
         public IEnumerable<WeatherEvent> Get(DateTime date)
-        {
+        { 
             return _context.WeatherEvents.Where(w => w.Date.Date == date.Date).ToList();
         }
-        
+              
        //api/Weather/1
         [HttpGet("{weatherType:int}")]
         public IEnumerable<WeatherEvent> Get(int weatherType)
         {
+            return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})").OrderByDescending(e=>e.Id);
           // return _context.WeatherEvents.Where(w => w.Type==WeatherType.Rain).ToList();
-        return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
+      //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
         }
 
 

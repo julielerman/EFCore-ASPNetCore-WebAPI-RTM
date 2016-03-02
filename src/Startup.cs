@@ -64,7 +64,7 @@ namespace EF7WebAPI
             app.UseStaticFiles();
 
             app.UseMvc();
-            //Populates the sample data
+            //Creates the database & populates the sample data
             SampleData.InitializeWeatherEventDatabaseAsync(app.ApplicationServices).Wait();
         }
 

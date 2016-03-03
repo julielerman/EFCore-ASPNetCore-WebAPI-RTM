@@ -55,11 +55,11 @@ namespace EF7WebAPI.Data
                 var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
                 foreach (var item in entities)
                 {
-                    db.Entry(item).State = existingData.Any(g => propertyToMatch(g).Equals(propertyToMatch(item)))
-                        ? EntityState.Modified
-                        : EntityState.Added;
+                    // db.Entry(item).State = existingData.Any(g => propertyToMatch(g).Equals(propertyToMatch(item)))
+                    //     ? EntityState.Modified
+                    //     : EntityState.Added;
+                    db.ChangeTracker.TrackGraph(item, e => e.Entry.State = EntityState.Added);
                 }
-
                 await db.SaveChangesAsync();
             }
         }
@@ -83,15 +83,18 @@ namespace EF7WebAPI.Data
         {
             var events = new WeatherEvent[]
             {
-                WeatherEvent.Create(DateTime.Now,WeatherType.Sun,true),
+                WeatherEvent.Create(DateTime.Now,WeatherType.Sun,true,
+                new List<string[]>{new []{"Julie","Oh so sunny!"}}),
                 WeatherEvent.Create(DateTime.Now.AddDays(-1),WeatherType.Snow,true),
                 WeatherEvent.Create(DateTime.Now.AddDays(-2),WeatherType.Rain,false),
-                WeatherEvent.Create(DateTime.Now.AddDays(-3),WeatherType.Sleet,false),
+                WeatherEvent.Create(DateTime.Now.AddDays(-3),WeatherType.Sleet,false,
+                new List<string[]>{new []{"Julie","WAT? I want to ski!"}, new []{"Everyone in vermont", "Bring us the snow!"}}),
                 WeatherEvent.Create(DateTime.Now.AddDays(-4),WeatherType.Hail,false),
                     WeatherEvent.Create(DateTime.Now.AddDays(-5),WeatherType.Snow,true),
                         WeatherEvent.Create(DateTime.Now.AddDays(-6),WeatherType.Snow,true),
             };
             return events;
         }
+        
     }
 }

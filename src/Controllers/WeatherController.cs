@@ -21,7 +21,7 @@ namespace EF7WebAPI.Controllers
         [HttpGet]
         public IEnumerable<WeatherEvent> Get()
         {
-            return _context.WeatherEvents.ToList();
+            return _context.WeatherEvents.Include(w=>w.Reactions).ToList();
           
         }
         //     [HttpGet]
@@ -38,6 +38,12 @@ namespace EF7WebAPI.Controllers
         { 
             return _context.WeatherEvents.Where(w => w.Date.Date == date.Date).ToList();
         }
+        
+        //  [HttpGet("{string}")]
+        // public IEnumerable<WeatherEvent> Get(string responderName)
+        // { 
+        //     return _context.WeatherEvents.Include(w=>w.Reactions).ToList();
+        // }
               
        //api/Weather/1
         [HttpGet("{weatherType:int}")]

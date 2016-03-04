@@ -14,7 +14,7 @@ using Xunit.Abstractions;
 namespace TestProject
 {
 
-    public class BlogServiceTests
+    public class WeatherApiTests
     {
         private ServiceCollection _serviceCollection;
         private DbContextOptions<WeatherContext> _contextOptions;
@@ -23,7 +23,7 @@ namespace TestProject
     
 
 
-        public BlogServiceTests(ITestOutputHelper output)
+        public WeatherApiTests(ITestOutputHelper output)
         {
             _output = output;
             // Create a service collection that we can create service providers from
@@ -38,7 +38,7 @@ namespace TestProject
             _contextOptions = optionsBuilder.Options;
         }
         [Fact]
-        public void TestingAPI()
+        public void CanGetWeatherEvents()
         {
             // All contexts that share the same service provider will share the same InMemory database
             var serviceProvider = _serviceCollection.BuildServiceProvider();
@@ -46,7 +46,19 @@ namespace TestProject
             using (var controller = new WeatherController(context))
             {
                 var results = controller.Get();
-                Assert.Equal(5, results.Count());
+                Assert.Equal(6, results.Count());
+            }
+        }
+           [Fact]
+        public void CanGetWeatherEventsFilteredByType()
+        {
+            // All contexts that share the same service provider will share the same InMemory database
+            var serviceProvider = _serviceCollection.BuildServiceProvider();
+            var context = CreateAndSeedContext();
+            using (var controller = new WeatherController(context))
+            {
+                var results = controller.Get(2);
+                Assert.Equal(2, results.Count());
             }
         }
 
@@ -70,7 +82,8 @@ namespace TestProject
                 WeatherEvent.Create(DateTime.Now.AddDays(-1),WeatherType.Snow,true),
                 WeatherEvent.Create(DateTime.Now.AddDays(-2),WeatherType.Rain,false),
                 WeatherEvent.Create(DateTime.Now.AddDays(-3),WeatherType.Sleet,false),
-                WeatherEvent.Create(DateTime.Now.AddDays(-4),WeatherType.Hail,false)
+                WeatherEvent.Create(DateTime.Now.AddDays(-4),WeatherType.Hail,false),
+                WeatherEvent.Create(DateTime.Now.AddDays(-5),WeatherType.Snow,false)
             };
             return events;
         }

@@ -1,10 +1,8 @@
-
-using EF7WebAPI.Controllers;
 using Xunit;
 
-namespace MyFirstDnxUnitTests
+namespace Boring
 {
-    public class Class1
+    public class Tests
     {
         [Fact]
         public void PassingTest()
@@ -12,11 +10,11 @@ namespace MyFirstDnxUnitTests
             Assert.Equal(4, Add(2, 2));
         }
 
-        // [Fact]
-        // public void FailingTest()
-        // {
-        //     Assert.Equal(5, Add(2, 2));
-        // }
+        [Fact]
+        public void FailingTest()
+        {
+            Assert.Equal(5, Add(2, 2));
+        }
 
         int Add(int x, int y)
         {

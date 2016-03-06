@@ -1,6 +1,7 @@
-using EF7WebAPI;
-using EF7WebAPI.Controllers;
-using EF7WebAPI.Data;
+using EFCoreWebApi;
+using EFCoreWebApi.Data;
+using EFCoreWebApi.Controllers;
+
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,19 +12,18 @@ using Xunit;
 using System.Linq;
 using Xunit.Abstractions;
 
+
 namespace EFTests
 {
 
-    public class ControllerTests
+    public class FancierControllerTests
     {
         private ServiceCollection _serviceCollection;
         private DbContextOptions<WeatherContext> _contextOptions;
-            private readonly ITestOutputHelper _output;
-
-    
+        private readonly ITestOutputHelper _output; //xunit for writeline
 
 
-        public ControllerTests(ITestOutputHelper output)
+        public FancierControllerTests(ITestOutputHelper output)
         {
             _output = output;
             // Create a service collection that we can create service providers from
@@ -49,7 +49,8 @@ namespace EFTests
                 Assert.Equal(7, results.Count());
             }
         }
-          [Fact]
+        
+        [Fact]
         public void CanGetWeatherEventsFilteredByDate()
         {
             // All contexts that share the same service provider will share the same InMemory database
@@ -58,7 +59,7 @@ namespace EFTests
             using (var controller = new WeatherController(context))
             {
                 var results = controller.Get(DateTime.Now.Date);
-                Assert.Equal(1, results.Count());
+                Assert.Equal(2, results.Count());
             }
         }
 

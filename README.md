@@ -2,7 +2,7 @@
 
 Current status:   
 
-*Master branch uses RC1 and PostgreSQL  
+*Master branch uses RC1 and PostgreSQL 
 *RC2 branch uses pre-RC2 with EFCore, ASPCore, CLI and SQLite via nighty builds  
 *MovingToDocker branch is setup to push the webapi into a docker container, create a 2nd container for postgresql via docker-compose. This is currently using RC1.
 

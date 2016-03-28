@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Data.Entity.Migrations;
 
-namespace EF7WebAPI.Migrations
+namespace EFCoreWebAPI.EFCoreWebAPI
 {
     public partial class init : Migration
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNet.Mvc;
 
-namespace EF7WebAPI.Controllers
+namespace EFCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller

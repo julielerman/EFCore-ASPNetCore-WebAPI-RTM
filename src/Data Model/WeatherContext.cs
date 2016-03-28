@@ -2,7 +2,7 @@ using System;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 
-namespace EF7WebAPI.Data
+namespace EFCoreWebAPI.Data
 {
     public class WeatherContext : DbContext
     {
@@ -14,4 +14,3 @@ namespace EF7WebAPI.Data
         { }
         public DbSet<WeatherEvent> WeatherEvents { get; set; }
     }
-}

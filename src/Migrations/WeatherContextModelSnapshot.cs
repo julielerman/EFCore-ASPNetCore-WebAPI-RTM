@@ -3,9 +3,9 @@ using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
-using EF7WebAPI.Data;
+using EFCoreWebAPI.Data;
 
-namespace EF7WebAPI.Migrations
+namespace EFCoreWebAPI.EFCoreWebAPI
 {
     [DbContext(typeof(WeatherContext))]
     partial class WeatherContextModelSnapshot : ModelSnapshot
@@ -15,7 +15,7 @@ namespace EF7WebAPI.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
 
-            modelBuilder.Entity("EF7WebAPI.WeatherEvent", b =>
+            modelBuilder.Entity("EFCoreWebAPI.WeatherEvent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();

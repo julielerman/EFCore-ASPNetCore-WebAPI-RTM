@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EF7WebAPI
+namespace EFCoreWebAPI
 {
     public class WeatherEvent
     {

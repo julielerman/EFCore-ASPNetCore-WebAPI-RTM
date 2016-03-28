@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EF7WebAPI.Data;
+using EFCoreWebAPI.Data;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
 
 
-namespace EF7WebAPI.Controllers
+namespace EFCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     public class WeatherController : Controller

@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-// using EF7WebAPI;
-// using EF7WebAPI.Data;
+// using EFCoreWebAPI;
+// using EFCoreWebAPI.Data;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace EF7WebAPI.Data
+namespace EFCoreWebAPI.Data
 {
     public static class SampleData
     {

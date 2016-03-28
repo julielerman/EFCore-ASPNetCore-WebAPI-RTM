@@ -1,4 +1,4 @@
-using EF7WebAPI.Data;
+using EFCoreWebAPI.Data;
 using EFLogging;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 
 
 
-namespace EF7WebAPI
+namespace EFCoreWebAPI
 {
     public class Startup
     {

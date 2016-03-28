@@ -1,9 +1,9 @@
 
 using System.Collections.Generic;
-using EF7WebAPI;
+using EFCoreWebAPI;
 using System;
 
-namespace EF7WebApi.Tools
+namespace EFCoreWebAPI.Tools
 {
     
 public static class ReactionParser{

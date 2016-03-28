@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EFCoreWebAPI.Data;
+using EFCoreWebAPI.Tools;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
 
@@ -24,13 +25,7 @@ namespace EFCoreWebAPI.Controllers
             return _context.WeatherEvents.Include(w => w.Reactions).ToList();
 
         }
-        //     [HttpGet]
-        // public IEnumerable<WeatherEvent> GetTestInsert()
-        // {
-        //     LogWeatherEvent(DateTime.Now.AddDays(7),WeatherType.Hail,true);
-        //     return _context.WeatherEvents.ToList();
 
-        // }
 
         //api/Weather/2016-01-28
         [HttpGet("{date}")]
@@ -38,12 +33,6 @@ namespace EFCoreWebAPI.Controllers
         {
             return _context.WeatherEvents.Where(w => w.Date.Date == date.Date).ToList();
         }
-
-        //  [HttpGet("{string}")]
-        // public IEnumerable<WeatherEvent> Get(string responderName)
-        // { 
-        //     return _context.WeatherEvents.Include(w=>w.Reactions).ToList();
-        // }
 
         //api/Weather/1
         [HttpGet("{weatherType:int}")]
@@ -53,13 +42,6 @@ namespace EFCoreWebAPI.Controllers
             // return _context.WeatherEvents.Where(w => w.Type==WeatherType.Rain).ToList();
             //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
         }
-
-
-        //    [HttpPost]
-        //     public DateTime LogWeatherEvent(DateTime datetime)
-        //     {  
-        //         return datetime;
-        //      }
 
         [HttpPost]
         public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy)
@@ -71,16 +53,34 @@ namespace EFCoreWebAPI.Controllers
             return result == 1;
         }
 
-        [HttpPut]
-        public int GetAndUpdateMostCommonWord(int eventId)
+        [HttpPost("{eventId}")]
+        public string GetAndUpdateMostCommonWord(int eventId)
         {
-            var eventGraphs = _context.WeatherEvents.Include(w => w.Reactions).ToList();
-            foreach (var weatherevent in eventGraphs)
-            {
+            var eventGraph = _context.WeatherEvents
+            .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
+            var theWord = ReactionParser.MostFrequentWord(
+                eventGraph.Reactions.Select(r => r.Quote).ToList());
+            eventGraph.MostCommonWord = theWord;
 
-            }
-            return 0;
+            return theWord;
         }
 
+ 
+
+    }
+    internal class InternalServices
+    {
+        WeatherContext _context;
+        public InternalServices(WeatherContext context)
+        {
+            _context = context;
+        }
+        public void UpdateWeatherEventOnly(WeatherEvent weatherEvent)
+        {
+            //even if this is a graph, only root will get touched
+            _context.Entry(weatherEvent).State = EntityState.Added;
+            _context.SaveChanges();
+
+        }
     }
 }

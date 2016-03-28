@@ -2,6 +2,8 @@ using EFCoreWebAPI.Data;
 using EFLogging;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Routing;
+using Microsoft.AspNet.Routing.Template;
 using Microsoft.CodeAnalysis;
 //using Microsoft.CodeAnalysis;
 using Microsoft.Data.Entity;
@@ -64,6 +66,8 @@ namespace EFCoreWebAPI
             app.UseStaticFiles();
 
             app.UseMvc();
+
+  
             //Creates the database & populates the sample data
             SampleData.InitializeWeatherEventDatabaseAsync(app.ApplicationServices).Wait();
         }

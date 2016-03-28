@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using Xunit;
+using Xunit.Abstractions;
+using System.Linq;
+using EFCoreWebAPI.Tools;
 
 namespace Boring
 {
@@ -19,19 +23,27 @@ namespace Boring
         int Add(int x, int y)
         {
             return x + y;
-         }
-       
+        }
+
     }
     public class ParserTests
     {
-        
-      [Fact]
-      public void CanParseArrayOfStrings(){
-          
-          var strings=new string[]{"hello there", "hola", "what do you have there?"};
-          
-          
-      }  
-        
+        private readonly ITestOutputHelper output;
+
+        public ParserTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
+
+        [Fact]
+        public void CanParseArrayOfStrings()
+        {
+
+            var strings = new List<string> { "hello there", "hola", "what do you have there?" };
+            Assert.Equal("there", ReactionParser.MostFrequentWord(strings));
+
+        }
+
     }
 }

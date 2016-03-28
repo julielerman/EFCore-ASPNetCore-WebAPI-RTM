@@ -1,6 +1,6 @@
-using EFCoreWebApi;
-using EFCoreWebApi.Data;
-using EFCoreWebApi.Controllers;
+using EFCoreWebAPI;
+using EFCoreWebAPI.Data;
+using EFCoreWebAPI.Controllers;
 using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;

@@ -1,13 +1,20 @@
 
 using System.Collections.Generic;
-using EFCoreWebAPI;
+
 using System;
+using System.Linq;
 
 namespace EFCoreWebAPI.Tools
 {
     
 public static class ReactionParser{
-public static  IDictionary<string, int> Parse(List<String> reactions)
+    public static string MostFrequentWord(List<String> wordList){
+           var wordPairs=Parse(wordList);
+           return wordPairs.Aggregate((a, b) => a.Value > b.Value ? a : b).Key;
+        
+        
+    }
+private static  IDictionary<string, int> Parse(List<String> reactions)
         {
                 IDictionary<string, int> words = new SortedDictionary<string, int>(new CaseInsensitiveComparer());
        
@@ -31,6 +38,7 @@ public static  IDictionary<string, int> Parse(List<String> reactions)
             }
             }
             return words;
+            
         }
 }
     

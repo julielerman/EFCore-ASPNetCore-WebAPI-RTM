@@ -88,7 +88,7 @@ namespace EFCoreWebAPI.Data
                 WeatherEvent.Create(DateTime.Now.AddDays(-1),WeatherType.Snow,true),
                 WeatherEvent.Create(DateTime.Now.AddDays(-2),WeatherType.Rain,false),
                 WeatherEvent.Create(DateTime.Now.AddDays(-3),WeatherType.Sleet,false,
-                new List<string[]>{new []{"Julie","WAT? I want to ski!"}, new []{"Everyone in vermont", "Bring us the snow!"}}),
+                new List<string[]>{new []{"Julie","WAT? No snow? I want to ski!"}, new []{"Everyone in vermont", "Bring us the snow!"}}),
                 WeatherEvent.Create(DateTime.Now.AddDays(-4),WeatherType.Hail,false),
                     WeatherEvent.Create(DateTime.Now.AddDays(-5),WeatherType.Snow,true),
                         WeatherEvent.Create(DateTime.Now.AddDays(-6),WeatherType.Snow,true),

@@ -8,9 +8,14 @@ namespace EFCoreWebAPI.Data
     {
            private WeatherContext()
         { }
+        
+         public WeatherContext(DbContextOptions<WeatherContext> options)
+        : base(options){}
+     
 
         public WeatherContext(IServiceProvider serviceProvider, DbContextOptions<WeatherContext> options)
             : base(serviceProvider, options)
         { }
         public DbSet<WeatherEvent> WeatherEvents { get; set; }
     }
+}

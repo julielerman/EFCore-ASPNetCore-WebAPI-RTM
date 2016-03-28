@@ -37,6 +37,7 @@ namespace EF7WebAPI
         public WeatherType Type { get; private set; }
         public bool Hooray { get; private set; }
         public ICollection<Reaction> Reactions { get; set; }
+        public  int MostCommonWord{get;set;}
     }
 
     public class Reaction

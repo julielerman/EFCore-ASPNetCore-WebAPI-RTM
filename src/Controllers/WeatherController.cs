@@ -70,5 +70,42 @@ namespace EF7WebAPI.Controllers
             var result = _context.SaveChanges();
             return result == 1;
         }
+        
+         [HttpPut]
+        public int GetAndUpdateMostCommonWord(int eventId)
+        {
+            var eventGraphs=_context.WeatherEvents.Include(w=>w.Reactions).ToList();
+            foreach (var weatherevent in eventGraphs)
+            {
+                
+            }
+            return 0;
+        }
+   
+     private  IDictionary<string, int> ReactionParser(List<Reaction> reactions)
+        {
+                IDictionary<string, int> words = new SortedDictionary<string, int>(new CaseInsensitiveComparer());
+       
+            foreach (var reaction in reactions)
+            {
+                
+           
+            string[] tokens = reaction.Quote.Split(' ', '.', ',', '-', '?', '!','<','>','&','[',']','(',')');
+             foreach (string word in tokens)
+            {
+                if (string.IsNullOrEmpty(word.Trim()))
+                {
+                    continue;
+                }
+                int count;
+                if (!words.TryGetValue(word, out count))
+                {
+                    count = 0;
+                }
+                words[word] = count + 1;
+            }
+            }
+            return words;
+        }
     }
 }

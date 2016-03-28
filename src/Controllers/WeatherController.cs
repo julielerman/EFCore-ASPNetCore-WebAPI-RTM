@@ -16,52 +16,52 @@ namespace EF7WebAPI.Controllers
         {
             _context = context;
         }
-        
-       
+
+
         [HttpGet]
         public IEnumerable<WeatherEvent> Get()
         {
-            return _context.WeatherEvents.Include(w=>w.Reactions).ToList();
-          
+            return _context.WeatherEvents.Include(w => w.Reactions).ToList();
+
         }
         //     [HttpGet]
         // public IEnumerable<WeatherEvent> GetTestInsert()
         // {
         //     LogWeatherEvent(DateTime.Now.AddDays(7),WeatherType.Hail,true);
         //     return _context.WeatherEvents.ToList();
-          
+
         // }
-        
+
         //api/Weather/2016-01-28
         [HttpGet("{date}")]
         public IEnumerable<WeatherEvent> Get(DateTime date)
-        { 
+        {
             return _context.WeatherEvents.Where(w => w.Date.Date == date.Date).ToList();
         }
-        
+
         //  [HttpGet("{string}")]
         // public IEnumerable<WeatherEvent> Get(string responderName)
         // { 
         //     return _context.WeatherEvents.Include(w=>w.Reactions).ToList();
         // }
-              
-       //api/Weather/1
+
+        //api/Weather/1
         [HttpGet("{weatherType:int}")]
         public IEnumerable<WeatherEvent> Get(int weatherType)
         {
-            return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})").OrderByDescending(e=>e.Id);
-          // return _context.WeatherEvents.Where(w => w.Type==WeatherType.Rain).ToList();
-      //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
+            return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})").OrderByDescending(e => e.Id);
+            // return _context.WeatherEvents.Where(w => w.Type==WeatherType.Rain).ToList();
+            //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
         }
 
 
-    //    [HttpPost]
-    //     public DateTime LogWeatherEvent(DateTime datetime)
-    //     {  
-    //         return datetime;
-    //      }
+        //    [HttpPost]
+        //     public DateTime LogWeatherEvent(DateTime datetime)
+        //     {  
+        //         return datetime;
+        //      }
 
-    [HttpPost]
+        [HttpPost]
         public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy)
         {
             var wE = WeatherEvent.Create(datetime, type, happy);
@@ -70,42 +70,17 @@ namespace EF7WebAPI.Controllers
             var result = _context.SaveChanges();
             return result == 1;
         }
-        
-         [HttpPut]
+
+        [HttpPut]
         public int GetAndUpdateMostCommonWord(int eventId)
         {
-            var eventGraphs=_context.WeatherEvents.Include(w=>w.Reactions).ToList();
+            var eventGraphs = _context.WeatherEvents.Include(w => w.Reactions).ToList();
             foreach (var weatherevent in eventGraphs)
             {
-                
+
             }
             return 0;
         }
-   
-     private  IDictionary<string, int> ReactionParser(List<Reaction> reactions)
-        {
-                IDictionary<string, int> words = new SortedDictionary<string, int>(new CaseInsensitiveComparer());
-       
-            foreach (var reaction in reactions)
-            {
-                
-           
-            string[] tokens = reaction.Quote.Split(' ', '.', ',', '-', '?', '!','<','>','&','[',']','(',')');
-             foreach (string word in tokens)
-            {
-                if (string.IsNullOrEmpty(word.Trim()))
-                {
-                    continue;
-                }
-                int count;
-                if (!words.TryGetValue(word, out count))
-                {
-                    count = 0;
-                }
-                words[word] = count + 1;
-            }
-            }
-            return words;
-        }
+
     }
 }

@@ -22,4 +22,16 @@ namespace Boring
          }
        
     }
+    public class ParserTests
+    {
+        
+      [Fact]
+      public void CanParseArrayOfStrings(){
+          
+          var strings=new string[]{"hello there", "hola", "what do you have there?"};
+          
+          
+      }  
+        
+    }
 }

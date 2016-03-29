@@ -1,6 +1,11 @@
 {
 "name": "ef7osxtest",
 "version": "0.0.0",
+"devDependencies": {
+    "nodemon": "1.9.1",
+    "gulp": "3.9.1",
+    "gulp-cli": "1.2.1"
+},
 "scripts": {
      "start" : "nodemon --ignore htm,html --ext cs,js --exec \"dnx web ASPNET_ENV=Development\" -V"
    }

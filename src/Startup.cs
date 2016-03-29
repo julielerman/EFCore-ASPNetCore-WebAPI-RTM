@@ -1,4 +1,5 @@
 using EFCoreWebAPI.Data;
+using EFCoreWebAPI.Internal;
 using EFLogging;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
@@ -52,6 +53,7 @@ namespace EFCoreWebAPI
                  .AddDbContext<WeatherContext>(options =>
                      options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
 
+services.AddScoped<InternalServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

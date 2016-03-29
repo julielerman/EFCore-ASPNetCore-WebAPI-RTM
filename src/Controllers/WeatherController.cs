@@ -5,6 +5,7 @@ using EFCoreWebAPI.Data;
 using EFCoreWebAPI.Tools;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
+using EFCoreWebAPI.Internal;
 
 
 namespace EFCoreWebAPI.Controllers
@@ -13,9 +14,14 @@ namespace EFCoreWebAPI.Controllers
     public class WeatherController : Controller
     {
         WeatherContext _context;
-        public WeatherController(WeatherContext context)
+      
+         InternalServices _services;
+     
+
+        public WeatherController(WeatherContext context, InternalServices services)
         {
             _context = context;
+            _services=services;
         }
 
 
@@ -61,26 +67,14 @@ namespace EFCoreWebAPI.Controllers
             var theWord = ReactionParser.MostFrequentWord(
                 eventGraph.Reactions.Select(r => r.Quote).ToList());
             eventGraph.MostCommonWord = theWord;
-
+            _services.UpdateWeatherEventOnly(eventGraph);
+            Console.WriteLine($"NOTE: Graph still has {eventGraph.Reactions.Count} reactions attached");
             return theWord;
         }
 
- 
 
-    }
-    internal class InternalServices
-    {
-        WeatherContext _context;
-        public InternalServices(WeatherContext context)
-        {
-            _context = context;
-        }
-        public void UpdateWeatherEventOnly(WeatherEvent weatherEvent)
-        {
-            //even if this is a graph, only root will get touched
-            _context.Entry(weatherEvent).State = EntityState.Added;
-            _context.SaveChanges();
 
-        }
     }
 }
+
+  

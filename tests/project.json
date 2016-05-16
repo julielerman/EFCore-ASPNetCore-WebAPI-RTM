@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0-*",
+    "version": "2.0.0-*",
     "description": "",
     "authors": [
         ""
@@ -8,19 +8,24 @@
         ""
     ],
     "projectUrl": "",
-    "licenseUrl": "",
+    "licenseUrl": ""
+    ,
     "dependencies": {
-        "EntityFramework.InMemory": "7.0.0-rc1-final",
-        "src":"1.0.0",
-        "xunit": "2.1.0",
-        "xunit.runner.dnx": "2.1.0-rc1-build204"
+        "Microsoft.EntityFrameworkCore.InMemory": "1.0.0-rc2-final",
+        "src":"2.0.0"
+        // ,
+        // "xunit": "2.1.0",
+        // "xunit.runner.dnx": "2.1.0-rc1-build204"
     },
-    "commands": {
-        "test": "xunit.runner.dnx"
-    },
-    "frameworks": {
-        "dnx451": {},
-        "dnxcore50": {
+   "frameworks": {
+        "netcoreapp1.0": {
+            "imports": [
+                "dotnet5.6",
+                "dnxcore50",
+                "portable-net45+win8"
+            ]
         }
+    
     }
+
 }

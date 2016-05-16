@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 // using EFCoreWebAPI;
 // using EFCoreWebAPI.Data;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;

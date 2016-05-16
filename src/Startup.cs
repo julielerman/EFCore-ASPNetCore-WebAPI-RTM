@@ -1,13 +1,14 @@
 using EFCoreWebAPI.Data;
 using EFCoreWebAPI.Internal;
 using EFLogging;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Routing;
-using Microsoft.AspNet.Routing.Template;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.CodeAnalysis;
 //using Microsoft.CodeAnalysis;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,9 +22,9 @@ namespace EFCoreWebAPI
 {
     public class Startup
     {
-        private readonly Platform _platform;
+        //private readonly Platform _platform;
 
-        public Startup(IHostingEnvironment env, IRuntimeEnvironment runtimeEnvironment)
+        public Startup(IHostingEnvironment env)
         {
 
             // Set up configuration sources.
@@ -44,7 +45,7 @@ namespace EFCoreWebAPI
             // Add framework services.
             services.AddMvc();
 
-            //note: see https://github.com/aspnet/MusicStore/blob/dev/src/MusicStore/Startup.cs
+            //note: see https://github.com/AspNetCore/MusicStore/blob/dev/src/MusicStore/Startup.cs
             //for post RC1 implementation of determining if this is a test
             //with the platform inspection
             
@@ -75,6 +76,6 @@ services.AddScoped<InternalServices>();
         }
 
         // Entry point for the application.
-        public static void Main(string[] args) => Microsoft.AspNet.Hosting.WebApplication.Run<Startup>(args);
+        public static void Main(string[] args) => Microsoft.AspNetCore.Hosting.WebApplication.Run<Startup>(args);
     }
 }

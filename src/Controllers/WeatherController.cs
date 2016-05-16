@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using EFCoreWebAPI.Data;
 using EFCoreWebAPI.Tools;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using EFCoreWebAPI.Internal;
 
 

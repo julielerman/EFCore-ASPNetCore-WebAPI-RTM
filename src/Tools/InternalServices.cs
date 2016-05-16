@@ -1,5 +1,5 @@
 using EFCoreWebAPI.Data;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreWebAPI.Internal
 {

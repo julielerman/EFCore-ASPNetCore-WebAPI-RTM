@@ -14,6 +14,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 
 
 
@@ -50,7 +57,7 @@ namespace EFCoreWebAPI
             //with the platform inspection
             
             services.AddEntityFramework()
-                 .AddNpgsql()
+                 .AddEntityFrameworkNpgsql()
                  .AddDbContext<WeatherContext>(options =>
                      options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
 
@@ -64,7 +71,7 @@ services.AddScoped<InternalServices>();
             loggerFactory.AddDebug();
             loggerFactory.AddProvider(new MyLoggerProvider2());
 
-            app.UseIISPlatformHandler();
+           // app.UseIISPlatformHandler();
 
             app.UseStaticFiles();
 
@@ -76,6 +83,18 @@ services.AddScoped<InternalServices>();
         }
 
         // Entry point for the application.
-        public static void Main(string[] args) => Microsoft.AspNetCore.Hosting.WebApplication.Run<Startup>(args);
+        //public static void Main(string[] args) => Microsoft.AspNetCore.Hosting.WebApplication.Run<Startup>(args);
+    // Entry point for the application.
+    public static void Main(string[] args)
+    {
+      var host = new WebHostBuilder()
+        .UseKestrel()
+        .UseContentRoot(Directory.GetCurrentDirectory())
+        .UseIISIntegration()
+        .UseStartup<Startup>()
+        .Build();
+
+      host.Run();
+    }
     }
 }

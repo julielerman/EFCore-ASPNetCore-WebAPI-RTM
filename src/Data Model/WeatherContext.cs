@@ -12,10 +12,10 @@ namespace EFCoreWebAPI.Data
          public WeatherContext(DbContextOptions<WeatherContext> options)
         : base(options){}
      
-
-        public WeatherContext(IServiceProvider serviceProvider, DbContextOptions<WeatherContext> options)
-            : base(serviceProvider, options)
-        { }
+//causing error in RC2 but need this for my tests : deal with it later
+        // public WeatherContext(IServiceProvider serviceProvider, DbContextOptions<WeatherContext> options)
+        //     : base(serviceProvider, options)
+        // { }
         public DbSet<WeatherEvent> WeatherEvents { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

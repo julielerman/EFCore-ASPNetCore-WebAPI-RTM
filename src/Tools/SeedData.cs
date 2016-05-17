@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.AspNetCore.Hosting;
+//using Microsoft.Extensions.PlatformAbstractions;
 
 namespace EFCoreWebAPI.Data
 {
@@ -64,21 +65,7 @@ namespace EFCoreWebAPI.Data
             }
         }
 
-        /// <summary>
-        /// Creates a store manager user who can manage the inventory.
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <returns></returns>
-        private static async Task CreateAdminUser(IServiceProvider serviceProvider)
-        {
-            var appEnv = serviceProvider.GetService<IApplicationEnvironment>();
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(appEnv.ApplicationBasePath)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
-            var configuration = builder.Build();
-        }
+       
         private static WeatherEvent[] BuildWeatherEvents()
         {
             var events = new WeatherEvent[]

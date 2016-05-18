@@ -44,7 +44,7 @@ namespace EFTests
             // All contexts that share the same service provider will share the same InMemory database
             var serviceProvider = _serviceCollection.BuildServiceProvider();
             var context = CreateAndSeedContext();
-            using (var controller = new WeatherController(context))
+            using (var controller = new WeatherController(context,null))
             {
                 var results = controller.Get();
                 Assert.Equal(7, results.Count());
@@ -57,7 +57,7 @@ namespace EFTests
             // All contexts that share the same service provider will share the same InMemory database
             var serviceProvider = _serviceCollection.BuildServiceProvider();
             var context = CreateAndSeedContext();
-            using (var controller = new WeatherController(context))
+            using (var controller = new WeatherController(context,null))
             {
                 var results = controller.Get(DateTime.Now.Date);
                 Assert.Equal(2, results.Count());

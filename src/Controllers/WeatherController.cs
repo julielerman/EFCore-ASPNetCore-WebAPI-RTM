@@ -11,7 +11,7 @@ using EFCoreWebAPI.Internal;
 namespace EFCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class WeatherController 
+    public class WeatherController  : Controller
     {
         WeatherContext _context;
       

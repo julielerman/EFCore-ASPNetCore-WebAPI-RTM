@@ -19,7 +19,7 @@ namespace EFTests
         public void CanGetWeatherEvents()
         {
             _context = CreateAndSeedContext();
-            using (var controller = new WeatherController(_context))
+            using (var controller = new WeatherController(_context,null))
             {
                 var results = controller.Get();
                 Assert.Equal(7, results.Count());
@@ -29,7 +29,7 @@ namespace EFTests
         public void CanGetWeatherEventsFilteredByDate()
         {
             _context = CreateAndSeedContext();
-            using (var controller = new WeatherController(_context))
+            using (var controller = new WeatherController(_context,null))
             {
                 var results = controller.Get(DateTime.Now.Date);
                 Assert.Equal(2, results.Count());

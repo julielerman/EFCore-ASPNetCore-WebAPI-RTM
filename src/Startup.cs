@@ -57,11 +57,14 @@ namespace EFCoreWebAPI
             //for post RC1 implementation of determining if this is a test
             //with the platform inspection
             
-            services.AddEntityFramework()
-                 .AddEntityFrameworkNpgsql()
-                 .AddDbContext<WeatherContext>(options =>
-                     options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
-
+            // services.AddEntityFramework()
+            //      .AddEntityFrameworkNpgsql()
+            //      .AddDbContext<WeatherContext>(options =>
+            //          options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
+// services.AddDbContext<WeatherContext>(options =>
+//   options.UseNpgsql(Configuration["Data:DefaultConnection:ConnectionString"]));
+services.AddDbContext<WeatherContext>(options =>
+  options.UseNpgsql("User ID=julie;Password=12345;Host=localhost;Port=5432;Database=weatherdata;Pooling=true;"));
 services.AddScoped<InternalServices>();
         }
 

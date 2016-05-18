@@ -1,23 +1,15 @@
 {
     "version": "0.2.0",
     "configurations": [
-        {
-            "name": ".NET Core Launch (console)",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceRoot}/src/bin/Debug/netcoreapp1.0/src.dll",
-            "args": [],
-            "cwd": "${workspaceRoot}",
-            "stopAtEntry": false
-        },
+      
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/src/bin/Debug/netcoreapp1.0/src.dll",
-            "args": [],
+           //"program": "${workspaceRoot}/src/bin/Debug/netcoreapp1.0/src.dll",
+           "program": "/usr/local/bin/dotnet",
+            "args": ["${workspaceRoot}/src/bin/Debug/netstandard1.0/src.dll"],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
             "launchBrowser": {

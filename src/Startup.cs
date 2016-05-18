@@ -56,16 +56,11 @@ namespace EFCoreWebAPI
             //note: see https://github.com/AspNetCore/MusicStore/blob/dev/src/MusicStore/Startup.cs
             //for post RC1 implementation of determining if this is a test
             //with the platform inspection
-            
-            // services.AddEntityFramework()
-            //      .AddEntityFrameworkNpgsql()
-            //      .AddDbContext<WeatherContext>(options =>
-            //          options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
-// services.AddDbContext<WeatherContext>(options =>
-//   options.UseNpgsql(Configuration["Data:DefaultConnection:ConnectionString"]));
-services.AddDbContext<WeatherContext>(options =>
-  options.UseNpgsql("User ID=julie;Password=12345;Host=localhost;Port=5432;Database=weatherdata;Pooling=true;"));
-services.AddScoped<InternalServices>();
+
+
+            services.AddDbContext<WeatherContext>(options =>
+              options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
+            services.AddScoped<InternalServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,30 +70,26 @@ services.AddScoped<InternalServices>();
             loggerFactory.AddDebug();
             loggerFactory.AddProvider(new MyLoggerProvider2());
 
-           // app.UseIISPlatformHandler();
-
             app.UseStaticFiles();
 
             app.UseMvc();
 
-  
+
             //Creates the database & populates the sample data
             SampleData.InitializeWeatherEventDatabaseAsync(app.ApplicationServices).Wait();
         }
 
         // Entry point for the application.
-        //public static void Main(string[] args) => Microsoft.AspNetCore.Hosting.WebApplication.Run<Startup>(args);
-    // Entry point for the application.
-    public static void Main(string[] args)
-    {
-      var host = new WebHostBuilder()
-        .UseKestrel()
-        .UseContentRoot(Directory.GetCurrentDirectory())
-        .UseIISIntegration()
-        .UseStartup<Startup>()
-        .Build();
+        public static void Main(string[] args)
+        {
+            var host = new WebHostBuilder()
+              .UseKestrel()
+              .UseContentRoot(Directory.GetCurrentDirectory())
+              .UseIISIntegration()
+              .UseStartup<Startup>()
+              .Build();
 
-      host.Run();
-    }
+            host.Run();
+        }
     }
 }

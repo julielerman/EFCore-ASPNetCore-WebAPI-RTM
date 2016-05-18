@@ -7,7 +7,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/src/startup.cs",
+           "program": "${workspaceRoot}/src/bin/Debug/netcoreapp1.0/src.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,

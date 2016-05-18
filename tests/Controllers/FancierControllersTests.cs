@@ -20,7 +20,7 @@ namespace EFTests
     public class FancierControllerTests
     {
         private ServiceCollection _services;
-        private DbContextOptions<WeatherContext> _contextOptions;
+     //   private DbContextOptions<WeatherContext> _contextOptions;
         private readonly ITestOutputHelper _output; //xunit for writeline
 
 

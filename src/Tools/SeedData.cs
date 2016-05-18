@@ -2,14 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-// using EF7WebAPI;
-// using EF7WebAPI.Data;
-using Microsoft.Data.Entity;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.PlatformAbstractions;
 
-namespace EF7WebAPI.Data
+namespace EFCoreWebAPI.Data
 {
     public static class SampleData
     {
@@ -55,30 +51,13 @@ namespace EF7WebAPI.Data
                 var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
                 foreach (var item in entities)
                 {
-                    // db.Entry(item).State = existingData.Any(g => propertyToMatch(g).Equals(propertyToMatch(item)))
-                    //     ? EntityState.Modified
-                    //     : EntityState.Added;
-                    db.ChangeTracker.TrackGraph(item, e => e.Entry.State = EntityState.Added);
+                        db.ChangeTracker.TrackGraph(item, e => e.Entry.State = EntityState.Added);
                 }
                 await db.SaveChangesAsync();
             }
         }
 
-        /// <summary>
-        /// Creates a store manager user who can manage the inventory.
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <returns></returns>
-        private static async Task CreateAdminUser(IServiceProvider serviceProvider)
-        {
-            var appEnv = serviceProvider.GetService<IApplicationEnvironment>();
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(appEnv.ApplicationBasePath)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
-            var configuration = builder.Build();
-        }
+       
         private static WeatherEvent[] BuildWeatherEvents()
         {
             var events = new WeatherEvent[]
@@ -88,7 +67,7 @@ namespace EF7WebAPI.Data
                 WeatherEvent.Create(DateTime.Now.AddDays(-1),WeatherType.Snow,true),
                 WeatherEvent.Create(DateTime.Now.AddDays(-2),WeatherType.Rain,false),
                 WeatherEvent.Create(DateTime.Now.AddDays(-3),WeatherType.Sleet,false,
-                new List<string[]>{new []{"Julie","WAT? I want to ski!"}, new []{"Everyone in vermont", "Bring us the snow!"}}),
+                new List<string[]>{new []{"Julie","WAT? No snow? I want to ski!"}, new []{"Everyone in vermont", "Bring us the snow!"}}),
                 WeatherEvent.Create(DateTime.Now.AddDays(-4),WeatherType.Hail,false),
                     WeatherEvent.Create(DateTime.Now.AddDays(-5),WeatherType.Snow,true),
                         WeatherEvent.Create(DateTime.Now.AddDays(-6),WeatherType.Snow,true),

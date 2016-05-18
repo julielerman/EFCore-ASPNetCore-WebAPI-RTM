@@ -1,9 +1,10 @@
-using EFCoreWebApi;
-using EFCoreWebApi.Data;
-using EFCoreWebApi.Controllers;
+using EFCoreWebAPI;
+using EFCoreWebAPI.Data;
+using EFCoreWebAPI.Controllers;
 
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,45 +19,35 @@ namespace EFTests
 
     public class FancierControllerTests
     {
-        private ServiceCollection _serviceCollection;
-        private DbContextOptions<WeatherContext> _contextOptions;
+        private ServiceCollection _services;
         private readonly ITestOutputHelper _output; //xunit for writeline
+        WeatherContext context;
 
 
         public FancierControllerTests(ITestOutputHelper output)
         {
             _output = output;
-            // Create a service collection that we can create service providers from
-            // A service collection defines the services that will be available in service 
-            // provider instances (think of it as ServiceProviderBuilder)
-            _serviceCollection = new ServiceCollection();
-            _serviceCollection.AddEntityFramework().AddInMemoryDatabase();
+            _services = new ServiceCollection();
+            _services.AddDbContext<WeatherContext>(options => options.UseInMemoryDatabase());
 
-            // Create options to tell the context to use the InMemory database
-            var optionsBuilder = new DbContextOptionsBuilder<WeatherContext>();
-            optionsBuilder.UseInMemoryDatabase();
-            _contextOptions = optionsBuilder.Options;
+
         }
         [Fact]
         public void CanGetWeatherEvents()
         {
-            // All contexts that share the same service provider will share the same InMemory database
-            var serviceProvider = _serviceCollection.BuildServiceProvider();
             var context = CreateAndSeedContext();
-            using (var controller = new WeatherController(context))
+            using (var controller = new WeatherController(context, null))
             {
                 var results = controller.Get();
-                Assert.Equal(7, results.Count());
+                Assert.Equal(8, results.Count());
             }
         }
-        
+
         [Fact]
         public void CanGetWeatherEventsFilteredByDate()
         {
-            // All contexts that share the same service provider will share the same InMemory database
-            var serviceProvider = _serviceCollection.BuildServiceProvider();
             var context = CreateAndSeedContext();
-            using (var controller = new WeatherController(context))
+            using (var controller = new WeatherController(context, null))
             {
                 var results = controller.Get(DateTime.Now.Date);
                 Assert.Equal(2, results.Count());
@@ -67,12 +58,16 @@ namespace EFTests
         private WeatherContext CreateAndSeedContext()
         {
             // All contexts that share the same service provider will share the same InMemory database
-            var serviceProvider = _serviceCollection.BuildServiceProvider();
+            var serviceProvider = _services.BuildServiceProvider();
+            var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            context = serviceScope.ServiceProvider.GetService<WeatherContext>();
 
-            var context = new WeatherContext(serviceProvider, _contextOptions);
             context.WeatherEvents.AddRange(BuildWeatherEvents());
             context.SaveChanges();
+
             return context;
+
+
 
         }
         private List<WeatherEvent> BuildWeatherEvents()

@@ -1,17 +1,25 @@
-using System;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
-namespace EF7WebAPI.Data
+namespace EFCoreWebAPI.Data
 {
     public class WeatherContext : DbContext
     {
-           private WeatherContext()
+        private WeatherContext()
         { }
 
-        public WeatherContext(IServiceProvider serviceProvider, DbContextOptions<WeatherContext> options)
-            : base(serviceProvider, options)
-        { }
+        public WeatherContext(DbContextOptions<WeatherContext> options)
+       : base(options) { }
+
         public DbSet<WeatherEvent> WeatherEvents { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            //quick and dirty takes care of my entities not all scenarios
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                modelBuilder.Entity(entity.Name).ToTable(entity.ClrType.Name + "s");
+            }
+        }
     }
 }

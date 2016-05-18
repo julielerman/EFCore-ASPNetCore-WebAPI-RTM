@@ -1,7 +1,7 @@
-using EFCoreWebApi;
-using EFCoreWebApi.Data;
-using EFCoreWebApi.Controllers;
-using Microsoft.Data.Entity;
+using EFCoreWebAPI;
+using EFCoreWebAPI.Data;
+using EFCoreWebAPI.Controllers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -15,11 +15,11 @@ namespace EFTests
     {
         private WeatherContext _context;
 
-        [Fact]
+       [Fact]
         public void CanGetWeatherEvents()
         {
             _context = CreateAndSeedContext();
-            using (var controller = new WeatherController(_context))
+            using (var controller = new WeatherController(_context,null))
             {
                 var results = controller.Get();
                 Assert.Equal(7, results.Count());
@@ -29,7 +29,7 @@ namespace EFTests
         public void CanGetWeatherEventsFilteredByDate()
         {
             _context = CreateAndSeedContext();
-            using (var controller = new WeatherController(_context))
+            using (var controller = new WeatherController(_context,null))
             {
                 var results = controller.Get(DateTime.Now.Date);
                 Assert.Equal(2, results.Count());

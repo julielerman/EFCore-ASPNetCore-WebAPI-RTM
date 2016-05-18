@@ -4,6 +4,7 @@ using System.IO;
 
 namespace EFLogging
 {
+
     public class MyLoggerProvider2 : ILoggerProvider
     {
         public ILogger CreateLogger(string categoryName)
@@ -14,23 +15,32 @@ namespace EFLogging
         public void Dispose()
         { }
 
+
         private class MyLogger : ILogger
         {
+
             public bool IsEnabled(LogLevel logLevel)
             {
                 return true;
             }
 
-            public void Log(LogLevel logLevel, int eventId, object state, Exception exception, Func<object, Exception, string> formatter)
+
+            public void Log<TState>(
+                  LogLevel logLevel,
+                  EventId eventId,
+                  TState state,
+                  Exception exception,
+                  Func<TState, Exception, string> formatter)
             {
-               // File.AppendAllText(@"C:\temp\log.txt", formatter(state, exception));
-                Console.WriteLine("--------"+ System.Environment.NewLine+formatter(state, exception));
+                   Console.WriteLine("--------" + System.Environment.NewLine + formatter(state, exception));
+
             }
 
-            public IDisposable BeginScopeImpl(object state)
+
+            public IDisposable BeginScope<TState>(TState state)
             {
                 return null;
             }
-        } 
+        }
     }
 }

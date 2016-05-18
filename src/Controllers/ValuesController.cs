@@ -1,16 +1,16 @@
 using System.Collections.Generic;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EF7WebAPI.Controllers
+namespace EFCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController
     {
         // GET: api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value3" };
+            return new string[] { "value1","value2", "value3" };
         }
 
         // GET api/values/5

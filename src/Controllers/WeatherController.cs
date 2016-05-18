@@ -1,67 +1,55 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EF7WebAPI.Data;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Data.Entity;
+using EFCoreWebAPI.Data;
+using EFCoreWebAPI.Tools;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using EFCoreWebAPI.Internal;
 
 
-namespace EF7WebAPI.Controllers
+namespace EFCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class WeatherController : Controller
+    public class WeatherController  : Controller
     {
         WeatherContext _context;
-        public WeatherController(WeatherContext context)
+      
+         InternalServices _services;
+     
+
+        public WeatherController(WeatherContext context, InternalServices services)
         {
             _context = context;
+            _services=services;
         }
-        
-       
+
+
         [HttpGet]
         public IEnumerable<WeatherEvent> Get()
         {
-            return _context.WeatherEvents.Include(w=>w.Reactions).ToList();
-          
+            return _context.WeatherEvents.Include(w => w.Reactions).ToList();
+
         }
-        //     [HttpGet]
-        // public IEnumerable<WeatherEvent> GetTestInsert()
-        // {
-        //     LogWeatherEvent(DateTime.Now.AddDays(7),WeatherType.Hail,true);
-        //     return _context.WeatherEvents.ToList();
-          
-        // }
-        
+
+
         //api/Weather/2016-01-28
         [HttpGet("{date}")]
         public IEnumerable<WeatherEvent> Get(DateTime date)
-        { 
+        {
             return _context.WeatherEvents.Where(w => w.Date.Date == date.Date).ToList();
         }
-        
-        //  [HttpGet("{string}")]
-        // public IEnumerable<WeatherEvent> Get(string responderName)
-        // { 
-        //     return _context.WeatherEvents.Include(w=>w.Reactions).ToList();
-        // }
-              
-       //api/Weather/1
+
+        //api/Weather/1
         [HttpGet("{weatherType:int}")]
         public IEnumerable<WeatherEvent> Get(int weatherType)
         {
-            return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})").OrderByDescending(e=>e.Id);
-          // return _context.WeatherEvents.Where(w => w.Type==WeatherType.Rain).ToList();
-      //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
+            return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})").OrderByDescending(e => e.Id);
+            // return _context.WeatherEvents.Where(w => w.Type==WeatherType.Rain).ToList();
+            //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
         }
 
-
-    //    [HttpPost]
-    //     public DateTime LogWeatherEvent(DateTime datetime)
-    //     {  
-    //         return datetime;
-    //      }
-
-    [HttpPost]
+        [HttpPost]
         public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy)
         {
             var wE = WeatherEvent.Create(datetime, type, happy);
@@ -70,5 +58,23 @@ namespace EF7WebAPI.Controllers
             var result = _context.SaveChanges();
             return result == 1;
         }
+
+        [HttpPost("{eventId}")]
+        public string GetAndUpdateMostCommonWord(int eventId)
+        {
+            var eventGraph = _context.WeatherEvents
+            .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
+            var theWord = ReactionParser.MostFrequentWord(
+                eventGraph.Reactions.Select(r => r.Quote).ToList());
+            eventGraph.MostCommonWord = theWord;
+            _services.UpdateWeatherEventOnly(eventGraph);
+            Console.WriteLine($"NOTE: Graph still has {eventGraph.Reactions.Count} reactions attached");
+            return theWord;
+        }
+
+
+
     }
 }
+
+  

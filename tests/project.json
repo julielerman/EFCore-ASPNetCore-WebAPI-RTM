@@ -1,8 +1,8 @@
 {
     "version": "2.0.0-*",
-    "description": "",
+    "description": "Tests for ample app using aspnetcore, efcore and postgresql. developed and run on OSX.",
     "authors": [
-        ""
+        "Julie Lerman"
     ],
      "testRunner": "xunit",
     "dependencies": {

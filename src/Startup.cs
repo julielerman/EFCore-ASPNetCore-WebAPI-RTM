@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
-using Microsoft.CodeAnalysis;
+//using Microsoft.CodeAnalysis;
 //using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 //using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -29,7 +29,7 @@ namespace EFCoreWebAPI
 {
     public class Startup
     {
-        //private readonly Platform _platform;
+        private readonly Platform _platform;
 
         public Startup(IHostingEnvironment env)
         {
@@ -40,18 +40,21 @@ namespace EFCoreWebAPI
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-            // _platform=new Platform();
-
-
+             _platform=new Platform();
+            var platString= _platform.ToString();
+             
+ var _isMono = string.Equals(
+                        PlatformServices.Default.Runtime.RuntimeType,
+                        "Mono",
+                        StringComparison.OrdinalIgnoreCase);
+       
         }
 
         public IConfigurationRoot Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
+                services.AddMvc();
 
             //note: see https://github.com/AspNetCore/MusicStore/blob/dev/src/MusicStore/Startup.cs
             //for post RC1 implementation of determining if this is a test
@@ -63,8 +66,7 @@ namespace EFCoreWebAPI
             services.AddScoped<InternalServices>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+          public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -73,8 +75,6 @@ namespace EFCoreWebAPI
             app.UseStaticFiles();
 
             app.UseMvc();
-
-
             //Creates the database & populates the sample data
             SampleData.InitializeWeatherEventDatabaseAsync(app.ApplicationServices).Wait();
         }

@@ -1,5 +1,9 @@
 {
     "version": "2.0.0-*",
+    "description": "Sample app using aspnetcore, efcore and postgresql. developed and run on OSX.",
+    "authors": [
+        "Julie Lerman"
+    ],
     "buildOptions": {
         "emitEntryPoint": true
     },

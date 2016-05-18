@@ -1,7 +1,7 @@
 using EFCoreWebAPI;
 using EFCoreWebAPI.Data;
 using EFCoreWebAPI.Controllers;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using Xunit;

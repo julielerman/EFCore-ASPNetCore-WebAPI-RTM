@@ -2,8 +2,9 @@ using EFCoreWebAPI;
 using EFCoreWebAPI.Data;
 using EFCoreWebAPI.Controllers;
 
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -69,9 +70,14 @@ namespace EFTests
             // All contexts that share the same service provider will share the same InMemory database
             var serviceProvider = _serviceCollection.BuildServiceProvider();
 
-            var context = new WeatherContext(serviceProvider, _contextOptions);
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+         // var context = new WeatherContext(serviceProvider, _contextOptions);
+              var context = serviceScope.ServiceProvider.GetService<WeatherContext>();
+           
             context.WeatherEvents.AddRange(BuildWeatherEvents());
             context.SaveChanges();
+            }
             return context;
 
         }

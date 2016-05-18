@@ -15,7 +15,7 @@ namespace EFTests
     {
         private WeatherContext _context;
 
-        [Fact]
+       [Fact]
         public void CanGetWeatherEvents()
         {
             _context = CreateAndSeedContext();

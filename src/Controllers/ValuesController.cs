@@ -10,7 +10,7 @@ namespace EFCoreWebAPI.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value3" };
+            return new string[] { "value1","value2", "value3" };
         }
 
         // GET api/values/5

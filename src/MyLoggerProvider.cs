@@ -32,8 +32,7 @@ namespace EFLogging
                   Exception exception,
                   Func<TState, Exception, string> formatter)
             {
-                //Log(logLevel, eventId, state, exception, formatter);
-                Console.WriteLine("--------" + System.Environment.NewLine + formatter(state, exception));
+                   Console.WriteLine("--------" + System.Environment.NewLine + formatter(state, exception));
 
             }
 

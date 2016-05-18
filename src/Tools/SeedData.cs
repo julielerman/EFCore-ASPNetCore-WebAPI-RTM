@@ -2,13 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-// using EFCoreWebAPI;
-// using EFCoreWebAPI.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
-//using Microsoft.Extensions.PlatformAbstractions;
 
 namespace EFCoreWebAPI.Data
 {
@@ -56,10 +51,7 @@ namespace EFCoreWebAPI.Data
                 var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
                 foreach (var item in entities)
                 {
-                    // db.Entry(item).State = existingData.Any(g => propertyToMatch(g).Equals(propertyToMatch(item)))
-                    //     ? EntityState.Modified
-                    //     : EntityState.Added;
-                    db.ChangeTracker.TrackGraph(item, e => e.Entry.State = EntityState.Added);
+                        db.ChangeTracker.TrackGraph(item, e => e.Entry.State = EntityState.Added);
                 }
                 await db.SaveChangesAsync();
             }

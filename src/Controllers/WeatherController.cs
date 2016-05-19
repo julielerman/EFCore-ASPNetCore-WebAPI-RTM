@@ -59,7 +59,7 @@ namespace EFCoreWebAPI.Controllers
             return result == 1;
         }
 
-        [HttpPost("{eventId}")]
+        [HttpPut("{eventId}")]
         public string GetAndUpdateMostCommonWord(int eventId)
         {
             var eventGraph = _context.WeatherEvents

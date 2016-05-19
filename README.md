@@ -1,5 +1,4 @@
-# ef7osxtest
-Would be nice to rename this to EFCore... 
+# EF Core, ASPNETCore on CoreCLR RC2, Uses PostgreSQL and InMemory for tests
 
 Current status (May 18, 2016):   
 

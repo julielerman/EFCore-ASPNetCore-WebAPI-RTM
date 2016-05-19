@@ -49,12 +49,25 @@ namespace EFCoreWebAPI.Controllers
             //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
         }
 
-        [HttpPost]
-        public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy)
+           [HttpPost]
+        public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy,
+                                           string name, string quote)
         {
-            var wE = WeatherEvent.Create(datetime, type, happy);
-
-            _context.WeatherEvents.Add(wE);
+            WeatherEvent wE;
+            if (String.IsNullOrEmpty(name))
+            {
+                //attach, add, remove, *update* ..all objects in graph
+                wE = WeatherEvent.Create(datetime, type, happy);
+                _context.WeatherEvents.Add(wE);
+            }
+            else
+            {
+                //changetracker: all graph object, but custom function on each
+                wE = WeatherEvent.Create(datetime, type, happy,
+                new List<string[]> { new[] { name, quote } });
+                _context.ChangeTracker.
+                TrackGraph(wE, e => e.Entry.State = EntityState.Added);
+            }
             var result = _context.SaveChanges();
             return result == 1;
         }

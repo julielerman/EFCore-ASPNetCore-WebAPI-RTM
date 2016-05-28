@@ -70,7 +70,7 @@ namespace EFCoreWebAPI
             var host = new WebHostBuilder()
               .UseKestrel()
               .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseUrls("http://localhost:5002")
+               // .UseUrls("http://0.0.0.0:5002") //<-for docker
               .UseIISIntegration()
               .UseStartup<Startup>()
                .Build();

@@ -70,9 +70,10 @@ namespace EFCoreWebAPI
             var host = new WebHostBuilder()
               .UseKestrel()
               .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseUrls("http://localhost:5002")
               .UseIISIntegration()
               .UseStartup<Startup>()
-              .Build();
+               .Build();
 
             host.Run();
         }

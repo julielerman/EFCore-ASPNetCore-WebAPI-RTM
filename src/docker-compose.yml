@@ -1,0 +1,15 @@
+version: '2'
+
+services: 
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: julie
+      POSTGRES_DB: weatherdata
+  web:
+    build: 
+      context: .
+    ports:
+     - "5002:5002"
+ 

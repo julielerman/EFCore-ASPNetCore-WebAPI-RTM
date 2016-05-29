@@ -19,5 +19,9 @@ namespace EFCoreWebAPI.Internal
             _context.SaveChanges();
 
         }
+        internal WeatherEvent GetWeatherEventAndReactionsById(var eventId)
+          return_context.WeatherEvents
+            .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
+       
     } 
 }

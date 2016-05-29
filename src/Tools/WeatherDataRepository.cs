@@ -1,6 +1,7 @@
 using EFCoreWebAPI.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace EFCoreWebAPI.Internal
 {
@@ -24,6 +25,12 @@ namespace EFCoreWebAPI.Internal
       {    
           return _context.WeatherEvents
             .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
+      }
+      
+      internal List<WeatherEvent> GetAllEventsWithReactions()
+      {
+            return _context.WeatherEvents
+            .Include(w => w.Reactions).ToList(); 
       }
     } 
 }

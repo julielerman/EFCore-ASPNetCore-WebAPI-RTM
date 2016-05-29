@@ -80,6 +80,16 @@ namespace EFCoreWebAPI.Controllers
             Console.WriteLine($"NOTE: Graph still has {eventGraph.Reactions.Count} reactions attached");
             return theWord;
         }
+        
+        [HttpPutAttribute("clean")]
+        public string FixSeasonInReactions(){
+           var eventGraph=
+           //get all graphs
+           //if date of event is after May 1, then look for snow in reation and change to "sun"
+           //pas graphs to updater, use trackchange to update only the modified entries
+           //need a few more reactions to show some with "snow" an some without
+           //also need to add localstate property to weather event and to reaction.
+        }
 
 
 

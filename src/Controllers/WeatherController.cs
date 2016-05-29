@@ -15,13 +15,13 @@ namespace EFCoreWebAPI.Controllers
     {
         WeatherContext _context;
 
-        InternalServices _services;
+        WeatherDataRepository _repo;
 
 
-        public WeatherController(WeatherContext context, InternalServices services)
+        public WeatherController(WeatherContext context, WeatherDataRepository services)
         {
             _context = context;
-            _services = services;
+            _repo = services;
         }
 
 
@@ -77,7 +77,7 @@ namespace EFCoreWebAPI.Controllers
             var theWord = ReactionParser.MostFrequentWord(
                 eventGraph.Reactions.Select(r => r.Quote).ToList());
             eventGraph.MostCommonWord = theWord;
-            _services.UpdateWeatherEventOnly(eventGraph);
+            _repo.UpdateWeatherEventOnly(eventGraph);
             Console.WriteLine($"NOTE: Graph still has {eventGraph.Reactions.Count} reactions attached");
             return theWord;
         }

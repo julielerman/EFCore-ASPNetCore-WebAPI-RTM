@@ -5,10 +5,10 @@ namespace EFCoreWebAPI.Internal
 {
    //this is a little wonky but allows me to buid the demo more easily
    //to show disconnected graph being passed in 
-     public class InternalServices
+     public class WeatherDataRepository
     {
         WeatherContext _context;
-        public InternalServices(WeatherContext context)
+        public WeatherDataRepository(WeatherContext context)
         {
             _context = context;
         }

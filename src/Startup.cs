@@ -48,7 +48,7 @@ namespace EFCoreWebAPI
 
             services.AddDbContext<WeatherContext>(options =>
               options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
-            services.AddScoped<InternalServices>();
+            services.AddScoped<WeatherDataRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

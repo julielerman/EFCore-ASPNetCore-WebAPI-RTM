@@ -11,17 +11,17 @@ using EFCoreWebAPI.Internal;
 namespace EFCoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class WeatherController  : Controller
+    public class WeatherController : Controller
     {
         WeatherContext _context;
-      
-         InternalServices _services;
-     
+
+        InternalServices _services;
+
 
         public WeatherController(WeatherContext context, InternalServices services)
         {
             _context = context;
-            _services=services;
+            _services = services;
         }
 
 
@@ -49,27 +49,24 @@ namespace EFCoreWebAPI.Controllers
             //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
         }
 
-           [HttpPost]
-        public bool LogWeatherEvent(DateTime datetime, WeatherType type, bool happy,
-                                           string name, string quote)
+        [HttpPost]
+        public int LogWeatherEvent(DateTime datetime, WeatherType type, bool happy,
+                                        string name, string quote)
         {
             WeatherEvent wE;
             if (String.IsNullOrEmpty(name))
             {
-                //attach, add, remove, *update* ..all objects in graph
                 wE = WeatherEvent.Create(datetime, type, happy);
-                _context.WeatherEvents.Add(wE);
-            }
+             }
             else
             {
-                //changetracker: all graph object, but custom function on each
                 wE = WeatherEvent.Create(datetime, type, happy,
-                new List<string[]> { new[] { name, quote } });
-                _context.ChangeTracker.
-                TrackGraph(wE, e => e.Entry.State = EntityState.Added);
-            }
-            var result = _context.SaveChanges();
-            return result == 1;
+                                         new List<string[]> { new[] { name, quote } });
+             }
+            //*Add, Attach, Update, Remove affects all items in graph
+             _context.WeatherEvents.Add(wE);
+            var affectedRowCount = _context.SaveChanges();
+            return affectedRowCount;
         }
 
         [HttpPut("{eventId}")]
@@ -90,4 +87,4 @@ namespace EFCoreWebAPI.Controllers
     }
 }
 
-  
+

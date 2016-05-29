@@ -83,8 +83,19 @@ namespace EFCoreWebAPI.Controllers
         
         [HttpPutAttribute("clean")]
         public string FixSeasonInReactions(){
-           var eventGraph=
-           //get all graphs
+           var eventGraphs=_repo.GetAllEventsWithReactions();
+           
+           foreach (Reaction reaction in eventGraphs.Where(e=>e.Date.Month<5).Select(e=>e.Reactions))
+           {
+              if (reaction.Quote.ToUpper().Contains("SNOW"))
+              {
+                  reaction.Quote.ToUpper().Replace("SNOW", "sun");
+                  reaction.ObjectState=ObjectState.Modified;
+              }
+              
+           }
+           var affectedRecords=_repo.UpdateRandomStateWeatherEventGraphs(eventGraphs);
+          return affectedRecords.ToString();
            //if date of event is after May 1, then look for snow in reation and change to "sun"
            //pas graphs to updater, use trackchange to update only the modified entries
            //need a few more reactions to show some with "snow" an some without

@@ -30,6 +30,7 @@ namespace EFCoreWebAPI
             Hooray = hooray;
             Type = type;
             Reactions = new List<Reaction>();
+            ObjectState=ObjectState.Added;
         }
         public int Id { get; set; }
         public DateTime Date { get; private set; }
@@ -38,14 +39,16 @@ namespace EFCoreWebAPI
         public bool Hooray { get; private set; }
         public ICollection<Reaction> Reactions { get; set; }
         public  string MostCommonWord{get;set;}
+        public ObjectState ObjectState {get;set;}
     }
 
-    public class Reaction
+    public class Reaction:IState
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Quote { get; set; }
         public int WeatherEventId { get; set; }
+        public ObjectState ObjectState {get;set;}
 
     }
     public enum WeatherType
@@ -55,5 +58,16 @@ namespace EFCoreWebAPI
         Sleet = 3,
         Hail = 4,
         Sun = 5
+    }
+    public interface IState
+    {
+        ObjectState ObjectState {get;set;}
+    }
+      public enum ObjectState
+    {
+        Unchanged=0,
+       Added=1,
+       Modified=2,
+       Deleted=3
     }
 }

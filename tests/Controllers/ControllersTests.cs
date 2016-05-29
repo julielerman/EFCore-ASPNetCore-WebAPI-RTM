@@ -36,7 +36,6 @@ namespace EFTests
             }
         }
 
-
         private WeatherContext CreateAndSeedContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<WeatherContext>();

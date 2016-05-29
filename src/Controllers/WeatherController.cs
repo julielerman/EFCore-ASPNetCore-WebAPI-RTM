@@ -44,9 +44,9 @@ namespace EFCoreWebAPI.Controllers
         [HttpGet("{weatherType:int}")]
         public IEnumerable<WeatherEvent> Get(int weatherType)
         {
-            return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})").OrderByDescending(e => e.Id);
+            //return _context.WeatherEvents.FromSql($"SELECT * FROM EventsByType({weatherType})").OrderByDescending(e => e.Id);
             // return _context.WeatherEvents.Where(w => w.Type==WeatherType.Rain).ToList();
-            //  return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
+             return _context.WeatherEvents.Where(w => (int)w.Type==weatherType).ToList();
         }
 
         [HttpPost]

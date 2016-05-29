@@ -1,4 +1,5 @@
 using EFCoreWebAPI.Data;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreWebAPI.Internal
@@ -19,9 +20,10 @@ namespace EFCoreWebAPI.Internal
             _context.SaveChanges();
 
         }
-        internal WeatherEvent GetWeatherEventAndReactionsById(var eventId)
-          return_context.WeatherEvents
+        internal WeatherEvent GetWeatherEventAndReactionsById(int eventId)
+      {    
+          return _context.WeatherEvents
             .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
-       
+      }
     } 
 }

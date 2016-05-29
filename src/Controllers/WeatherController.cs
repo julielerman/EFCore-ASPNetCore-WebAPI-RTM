@@ -72,8 +72,7 @@ namespace EFCoreWebAPI.Controllers
         [HttpPut("{eventId}")]
         public string GetAndUpdateMostCommonWord(int eventId)
         {
-            var eventGraph = _context.WeatherEvents
-            .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
+            var eventGraph = _repo.GetWeatherEventAndReactionsById(eventId);
             var theWord = ReactionParser.MostFrequentWord(
                 eventGraph.Reactions.Select(r => r.Quote).ToList());
             eventGraph.MostCommonWord = theWord;

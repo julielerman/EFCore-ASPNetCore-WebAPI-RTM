@@ -1,5 +1,5 @@
 #see https://hub.docker.com/r/microsoft/dotnet/ for details
-
+#I use this to prebuild an image that is used by the dockerfile in the src 
 
 FROM microsoft/dotnet
 

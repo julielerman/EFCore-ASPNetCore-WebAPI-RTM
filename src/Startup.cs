@@ -45,8 +45,11 @@ namespace EFCoreWebAPI
         {
             services.AddMvc();
 
-            services.AddDbContext<WeatherContext>(options =>
-              options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
+            // services.AddDbContext<WeatherContext>(options =>
+            //   options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
+            
+            services.AddDbContext<WeatherContext>(options=>
+            options.UseSqlite(Configuration["Data:SqliteConnection"]));
             services.AddScoped<WeatherDataRepository>();
         }
 

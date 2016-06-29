@@ -29,8 +29,7 @@ namespace EFCoreWebAPI
 {
     public class Startup
     {
-        private readonly Platform _platform;
-
+      
         public Startup(IHostingEnvironment env)
         {
           var builder = new ConfigurationBuilder()

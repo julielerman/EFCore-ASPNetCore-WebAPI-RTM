@@ -2,8 +2,8 @@
 
 **Current status (June 29, 2016):**
 
-*Master branch uses RTM that was released on June 27.
-*Temporarily switched to SQLIte while waiting for updated PostgreSQL packages.
+*Master branch uses RTM that was released on June 27.  
+*Temporarily switched to SQLIte while waiting for updated PostgreSQL packages.  
 *Added settings in startup and appsettings.json to work with docker. Docker file in root path will build a reusable dotnet core rc2 image. Docker file in src path is for running the app. Use docker-compose from src to run after modifying the app to use the two mods noted inthe startup and appsettings files.
 *Removed the MovingToDocker branch that was old.
 

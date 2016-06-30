@@ -45,12 +45,12 @@ namespace EFCoreWebAPI
         {
             services.AddMvc();
 
-            // services.AddDbContext<WeatherContext>(options =>
-            //   options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
+            services.AddDbContext<WeatherContext>(options =>
+              options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
             
-            services.AddDbContext<WeatherContext>(options=>
-            options.UseSqlite(Configuration["Data:SqliteConnection:ConnectionString"]));
-            services.AddScoped<WeatherDataRepository>();
+            // services.AddDbContext<WeatherContext>(options=>
+            // options.UseSqlite(Configuration["Data:SqliteConnection:ConnectionString"]));
+             services.AddScoped<WeatherDataRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -73,6 +73,7 @@ namespace EFCoreWebAPI
               .UseKestrel()
               .UseContentRoot(Directory.GetCurrentDirectory())
                // .UseUrls("http://0.0.0.0:5002") //<-for docker
+              .UseUrls("http://0.0.0.0:5000") //<-for docker
               .UseIISIntegration()
               .UseStartup<Startup>()
                .Build();

@@ -8,13 +8,13 @@ using EFCoreWebAPI.Data;
 namespace src.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20160518125026_init")]
+    [Migration("20160630085235_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc2-20896");
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
 
             modelBuilder.Entity("EFCoreWebAPI.Reaction", b =>
                 {
@@ -22,6 +22,8 @@ namespace src.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("ObjectState");
 
                     b.Property<string>("Quote");
 
@@ -45,6 +47,8 @@ namespace src.Migrations
 
                     b.Property<string>("MostCommonWord");
 
+                    b.Property<int>("ObjectState");
+
                     b.Property<TimeSpan>("Time");
 
                     b.Property<int>("Type");
@@ -57,7 +61,7 @@ namespace src.Migrations
             modelBuilder.Entity("EFCoreWebAPI.Reaction", b =>
                 {
                     b.HasOne("EFCoreWebAPI.WeatherEvent")
-                        .WithMany()
+                        .WithMany("Reactions")
                         .HasForeignKey("WeatherEventId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

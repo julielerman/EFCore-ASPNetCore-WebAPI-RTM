@@ -13,10 +13,11 @@ namespace src.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:Serial", true),
+                        .Annotation("Npgsql:ValueGeneratedOnAdd", true),
                     Date = table.Column<DateTime>(nullable: false),
                     Hooray = table.Column<bool>(nullable: false),
                     MostCommonWord = table.Column<string>(nullable: true),
+                    ObjectState = table.Column<int>(nullable: false),
                     Time = table.Column<TimeSpan>(nullable: false),
                     Type = table.Column<int>(nullable: false)
                 },
@@ -30,8 +31,9 @@ namespace src.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:Serial", true),
+                        .Annotation("Npgsql:ValueGeneratedOnAdd", true),
                     Name = table.Column<string>(nullable: true),
+                    ObjectState = table.Column<int>(nullable: false),
                     Quote = table.Column<string>(nullable: true),
                     WeatherEventId = table.Column<int>(nullable: false)
                 },

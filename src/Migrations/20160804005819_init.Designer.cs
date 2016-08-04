@@ -8,7 +8,7 @@ using EFCoreWebAPI.Data;
 namespace src.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20160630085235_init")]
+    [Migration("20160804005819_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

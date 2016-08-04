@@ -1,0 +1,83 @@
+[
+  {
+    "date": "2016-07-27T00:00:00",
+    "time": "22:09:13.8216230",
+    "type": 5,
+    "reactions": [
+      {
+        "name": "Julie",
+        "quote": "Oh so sunny!",
+        "comments": []
+      }
+    ],
+    "mostCommonWord": null
+  },
+  {
+    "date": "2016-07-25T00:00:00",
+    "time": "22:09:13.8237230",
+    "type": 1,
+    "reactions": [],
+    "mostCommonWord": null
+  },
+  {
+    "date": "2016-07-24T00:00:00",
+    "time": "22:09:13.8238740",
+    "type": 5,
+    "reactions": [
+      {
+        "name": "Julie",
+        "quote": "Oh lovely summer sun! Too bad I'm on my computer",
+        "comments": []
+      },
+      {
+        "name": "Everyone in vermont",
+        "quote": "Hooray let's go play!",
+        "comments": []
+      },
+      {
+        "name": "Sampson",
+        "quote": "I'd like to go for a swim, please!",
+        "comments": []
+      }
+    ],
+    "mostCommonWord": null
+  },
+  {
+    "date": "2016-07-23T00:00:00",
+    "time": "22:09:13.8239130",
+    "type": 6,
+    "reactions": [],
+    "mostCommonWord": null
+  },
+  {
+    "date": "2016-07-22T00:00:00",
+    "time": "22:09:13.8239210",
+    "type": 1,
+    "reactions": [],
+    "mostCommonWord": null
+  },
+  {
+    "date": "2016-07-21T00:00:00",
+    "time": "22:09:13.8239290",
+    "type": 5,
+    "reactions": [],
+    "mostCommonWord": null
+  },
+  {
+    "date": "2016-07-26T00:00:00",
+    "time": "22:09:13.8239360",
+    "type": 2,
+    "reactions": [
+      {
+        "name": "Julie",
+        "quote": "Snow? In July? Okay this is ridiculous even for Vermont!",
+        "comments": [
+          {
+            "text": "Get over it, Julie!"
+          }
+        ]
+      }
+    ],
+    "mostCommonWord": null
+  }
+]

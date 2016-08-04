@@ -20,22 +20,19 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-
-
-
-
+using EFCoreWebAPI.Tools;
 
 namespace EFCoreWebAPI
 {
     public class Startup
     {
-      
+
         public Startup(IHostingEnvironment env)
         {
-          var builder = new ConfigurationBuilder()
-               .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
+            var builder = new ConfigurationBuilder()
+                 .SetBasePath(env.ContentRootPath)
+                  .AddJsonFile("appsettings.json")
+                  .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -47,13 +44,14 @@ namespace EFCoreWebAPI
 
             services.AddDbContext<WeatherContext>(options =>
               options.UseNpgsql(Configuration["Data:PostgreConnection:ConnectionString"]));
-            
+
             // services.AddDbContext<WeatherContext>(options=>
             // options.UseSqlite(Configuration["Data:SqliteConnection:ConnectionString"]));
-             services.AddScoped<WeatherDataRepository>();
+            services.AddScoped<WeatherDataRepository>();
+            services.AddTransient<Seeder>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Seeder seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -62,8 +60,9 @@ namespace EFCoreWebAPI
             app.UseStaticFiles();
 
             app.UseMvc();
-            //Creates the database & populates the sample data
-            SampleData.InitializeWeatherEventDatabaseAsync(app.ApplicationServices).Wait();
+            var dataText = System.IO.File.ReadAllText(@"SeedData.json");
+            seeder.Seedit(dataText);
+
         }
 
         // Entry point for the application.
@@ -72,7 +71,7 @@ namespace EFCoreWebAPI
             var host = new WebHostBuilder()
               .UseKestrel()
               .UseContentRoot(Directory.GetCurrentDirectory())
-               // .UseUrls("http://0.0.0.0:5002") //<-for docker
+              // .UseUrls("http://0.0.0.0:5002") //<-for docker
               .UseUrls("http://0.0.0.0:5000") //<-for docker
               .UseIISIntegration()
               .UseStartup<Startup>()

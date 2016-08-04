@@ -1,7 +1,8 @@
 # EF Core, ASPNETCore on CoreCLR RTM, Uses PostgreSQL and InMemory for tests
 
-**Current status (June 30, 2016):**
+**Current status (Aug 2, 2016):**
 
+*Replaced seed data class with a simpler method that uses JSON seed data. See http://thedatafarm.com/uncategorized/seeding-ef-with-json-data/ for details.
 *Master branch uses RTM that was released on June 27.  
 *The Npgsql driver is available for RTM so I've switched back to postgres. But left sqlite code in there so you can see it.  
 *Added settings in startup and appsettings.json to work with docker. Docker file in root path will build a reusable dotnet core rc2 image. Docker file in src path is for running the app. Use docker-compose from src to run after modifying the app to use the two mods noted inthe startup and appsettings files.

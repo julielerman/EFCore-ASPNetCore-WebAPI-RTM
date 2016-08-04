@@ -1,82 +1,37 @@
-using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using JsonNet.PrivateSettersContractResolvers;
+using EFCoreWebAPI.Data;
 
-namespace EFCoreWebAPI.Data
+namespace EFCoreWebAPI.Tools
 {
-    public static class SampleData
+    public class Seeder
     {
+        WeatherContext _context;
+     
 
-        public static async Task InitializeWeatherEventDatabaseAsync(IServiceProvider serviceProvider, bool createUsers = true)
+        public Seeder(WeatherContext context)
         {
-            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            _context = context;
+           
+        }
+
+        public void Seedit(string jsonData)
+        {
+            
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+             ContractResolver = new PrivateSetterContractResolver()
+           
+        };
+         List<WeatherEvent> events =
+             JsonConvert.DeserializeObject<List<WeatherEvent>>(jsonData, settings);
+             if (!_context.WeatherEvents.Any())
             {
-                var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
-                await db.Database.EnsureDeletedAsync();
-
-                if (await db.Database.EnsureCreatedAsync())
-                {
-                    await InsertTestData(serviceProvider);
-
-                }
+                _context.AddRange(events);
+                _context.SaveChanges();
             }
         }
-
-          private static async Task InsertTestData(IServiceProvider serviceProvider)
-        {
-            var weatherEvents = BuildWeatherEvents();
-
-            await AddOrUpdateAsync(serviceProvider, a => a.Id, weatherEvents);
-        }
-
-        // TODO [EF] This may be replaced by a first class mechanism in EF
-        private static async Task AddOrUpdateAsync<TEntity>(
-            IServiceProvider serviceProvider,
-            Func<TEntity, object> propertyToMatch, IEnumerable<TEntity> entities)
-            where TEntity : class
-        {
-            // Query in a separate context so that we can attach existing entities as modified
-            List<TEntity> existingData;
-            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
-                existingData = db.Set<TEntity>().ToList();
-            }
-
-            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var db = serviceScope.ServiceProvider.GetService<WeatherContext>();
-                foreach (var item in entities)
-                {
-                        db.ChangeTracker.TrackGraph(item, e => e.Entry.State = EntityState.Added);
-                }
-                await db.SaveChangesAsync();
-            }
-        }
-
-       
-        private static WeatherEvent[] BuildWeatherEvents()
-        {
-            var events = new WeatherEvent[]
-            {
-                WeatherEvent.Create(DateTime.Now,WeatherType.Sun,true,
-                new List<string[]>{new []{"Julie","Oh so sunny!"}}),
-                WeatherEvent.Create(DateTime.Now.AddDays(-1),WeatherType.Snow,true),
-                WeatherEvent.Create(DateTime.Now.AddDays(-2),WeatherType.Rain,false),
-                WeatherEvent.Create(DateTime.Now.AddDays(-3),WeatherType.Sleet,false,
-                new List<string[]>{new []{"Julie","WAT? No snow? I want to ski!"}, 
-                                   new []{"Everyone in vermont", "Bring us the snow!"},
-                                    new []{"Julie","Ah rain! Good for the flowers!"},
-                                 }),
-                WeatherEvent.Create(DateTime.Now.AddDays(-4),WeatherType.Hail,false),
-                    WeatherEvent.Create(DateTime.Now.AddDays(-5),WeatherType.Snow,true),
-                        WeatherEvent.Create(DateTime.Now.AddDays(-6),WeatherType.Snow,true),
-            };
-            return events;
-        }
-        
     }
 }

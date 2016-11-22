@@ -4,7 +4,7 @@
     "authors": [
         "Julie Lerman"
     ],
-     "testRunner": "xunit",
+    "testRunner": "xunit",
     "dependencies": {
         "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
         "src": "3.0.0",

@@ -60,7 +60,7 @@ namespace EFCoreWebAPI
             app.UseStaticFiles();
 
             app.UseMvc();
-            var dataText = System.IO.File.ReadAllText(@"SeedData.json");
+            var dataText = System.IO.File.ReadAllText(@"Tools/SeedData.json");
             seeder.Seedit(dataText);
 
         }
@@ -72,7 +72,7 @@ namespace EFCoreWebAPI
               .UseKestrel()
               .UseContentRoot(Directory.GetCurrentDirectory())
               // .UseUrls("http://0.0.0.0:5002") //<-for docker
-              .UseUrls("http://0.0.0.0:5000") //<-for docker
+              //.UseUrls("http://0.0.0.0:5000") //<-for docker
               .UseIISIntegration()
               .UseStartup<Startup>()
                .Build();

@@ -83,7 +83,7 @@ namespace EFCoreWebAPI.Controllers
                 eventGraph.Reactions.Select(r => r.Quote).ToList());
             eventGraph.MostCommonWord = theWord;
             _repo.UpdateWeatherEventOnly(eventGraph);
-            Console.WriteLine($"NOTE: Graph still has {eventGraph.Reactions.Count} reactions attached");
+            Console.WriteLine($"NOTE: Graph still has {eventGraph.Reactions.Count()} reactions attached");
             return theWord;
         }
 

@@ -2,12 +2,12 @@
 
 **Current status (Nov 22, 2016):**
 
-*Updated to .NET Core 1.1
-*Updated xunit version in tests project.json
-*Modified WeatherEvent to leverage IEnumerable mapping and encapsulate reactions
-*Modified repository to show that Find and Load were added to 1.1 (even though the single Include + FirstOrDefalt statement is more efficient!)
-*Updated seed method to read json, update dates with current dates, then read the json into weatherevent types
-**August 2 and earlier changes**
+*Updated to .NET Core 1.1  
+*Updated xunit version in tests project.json  
+*Modified WeatherEvent to leverage IEnumerable mapping and encapsulate reactions  
+*Modified repository to show that Find and Load were added to 1.1 (even though the single Include + FirstOrDefalt statement is more efficient!)  
+*Updated seed method to read json, update dates with current dates, then read the json into weatherevent types  
+**August 2 and earlier changes**  
 *Replaced seed data class with a simpler method that uses JSON seed data. See http://thedatafarm.com/uncategorized/seeding-ef-with-json-data/ for details.
 *Master branch uses RTM that was released on June 27.  
 *The Npgsql driver is available for RTM so I've switched back to postgres. But left sqlite code in there so you can see it.  

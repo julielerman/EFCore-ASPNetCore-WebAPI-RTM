@@ -1,4 +1,9 @@
 {
-    "projects" : ["src", "tests"] //,
-
+    "projects": [
+        "src",
+        "tests"
+    ],
+    "sdk": {
+        "version": "1.1.0-preview4-final"
+    }
 }

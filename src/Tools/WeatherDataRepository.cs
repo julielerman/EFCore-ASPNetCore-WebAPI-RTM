@@ -25,8 +25,15 @@ namespace EFCoreWebAPI.Internal
         }
         internal WeatherEvent GetWeatherEventAndReactionsById(int eventId)
         {
-            return _context.WeatherEvents
-              .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
+            //this is more efficient, uses only one db call
+            // return _context.WeatherEvents
+            //   .Include(w => w.Reactions).FirstOrDefault(w => w.Id == eventId);
+             //but using this to show that Find is now here
+             //as well as ability to Load related Data as of 1.1
+             var weatherEvent= _context.WeatherEvents.Find(eventId);
+             _context.Entry(weatherEvent).Collection(w=>w.Reactions).Load();
+             return weatherEvent;
+
         }
 
         internal List<WeatherEvent> GetAllEventsWithReactions()
